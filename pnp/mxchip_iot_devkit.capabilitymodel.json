@@ -1,0 +1,28 @@
+{
+  "@id": "urn:mxchip:mxchip_iot_devkit:1",
+  "@type": "CapabilityModel",
+  "displayName": "MXChip IoT DevKit",
+  "implements": [
+    {
+      "schema": "urn:azureiot:DeviceManagement:DeviceInformation:1",
+      "name": "deviceinfo"
+    },
+    {
+      "schema": "urn:mxchip:built_in_sensors:1",
+      "name": "sensors"
+    },
+    {
+      "schema": "urn:mxchip:built_in_leds:1",
+      "name": "leds"
+    },
+    {
+      "schema": "urn:mxchip:screen:1",
+      "name": "screen"
+    },
+    {
+      "schema": "urn:mxchip:settings:1",
+      "name": "settings"
+    }
+  ],
+  "@context": "http://azureiot.com/v1/contexts/IoTModel.json"
+}

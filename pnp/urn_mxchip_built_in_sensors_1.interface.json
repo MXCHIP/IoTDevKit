@@ -1,0 +1,98 @@
+{
+    "@id": "urn:mxchip:built_in_sensors:1",
+    "@type": "Interface",
+    "displayName": "mxchip_sensor",
+    "contents": [
+        {
+            "@type": "Telemetry",
+            "name": "humidity",
+            "displayName": "Humidity",
+            "comment": "The humidity measurement data from the built-in HTS221 sensor.",
+            "schema": "double"
+        },
+        {
+            "@type": "Telemetry",
+            "name": "temperature",
+            "displayName": "Temperature",
+            "comment": "The temperature measurement data from the built-in HTS221 sensor.",
+            "schema": "double"
+        },
+        {
+            "@type": "Telemetry",
+            "name": "pressure",
+            "displayName": "Pressure",
+            "comment": "The pressure measurement data from the built-in LPS22HB sensor.",
+            "schema": "double"
+        },
+        {
+            "@type": "Telemetry",
+            "name": "magnetometer",
+            "displayName": "Magnetometer",
+            "comment": "The magnetism measurement data from the built-in LIS2MDL sensor.",
+            "schema": {
+                "@type": "Object",
+                "fields": [
+                    {
+                        "name": "x",
+                        "schema": "integer"
+                    },
+                    {
+                        "name": "y",
+                        "schema": "integer"
+                    },
+                    {
+                        "name": "z",
+                        "schema": "integer"
+                    }
+                ]
+            }
+        },
+        {
+            "@type": "Telemetry",
+            "name": "gyroscope",
+            "displayName": "Gyroscope",
+            "comment": "The angular velocity measurement data from the built-in LSM6DSL sensor.",
+            "schema": {
+                "@type": "Object",
+                "fields": [
+                    {
+                        "name": "x",
+                        "schema": "integer"
+                    },
+                    {
+                        "name": "y",
+                        "schema": "integer"
+                    },
+                    {
+                        "name": "z",
+                        "schema": "integer"
+                    }
+                ]
+            }
+        },
+        {
+            "@type": "Telemetry",
+            "name": "accelerometer",
+            "displayName": "Accelerometer",
+            "comment": "The proper acceleration measurement data from the built-in LSM6DSL sensor.",
+            "schema": {
+                "@type": "Object",
+                "fields": [
+                    {
+                        "name": "x",
+                        "schema": "integer"
+                    },
+                    {
+                        "name": "y",
+                        "schema": "integer"
+                    },
+                    {
+                        "name": "z",
+                        "schema": "integer"
+                    }
+                ]
+            }
+        }
+    ],
+    "@context": "http://azureiot.com/v1/contexts/IoTModel.json"
+}

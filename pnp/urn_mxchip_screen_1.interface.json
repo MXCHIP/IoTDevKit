@@ -1,0 +1,42 @@
+{
+    "@id": "urn:mxchip:screen:1",
+    "@type": "Interface",
+    "displayName": "mxchip_screen",
+    "contents": [
+        {
+            "@type": "Command",
+            "description": "This command will echo the text string from cloud and show it on the onboard OLED screen.",
+            "name": "echo",
+            "displayName": "Echo",
+            "commandType": "synchronous",
+            "request": {
+                "name": "text",
+                "schema": "string"
+            },
+            "response": {
+                "name": "echoResponse",
+                "schema": {
+                    "@type": "Object",
+                    "fields": [
+                        {
+                            "name": "echo",
+                            "schema": "string"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "@type": "Command",
+            "description": "This command will show countdown number in the onboard OLED screen, and reboot the device once it's 0.",
+            "name": "countdown",
+            "displayName": "Countdown",
+            "commandType": "synchronous",
+            "request": {
+                "name": "number",
+                "schema": "integer"
+            }
+        }
+    ],
+    "@context": "http://azureiot.com/v1/contexts/IoTModel.json"
+}

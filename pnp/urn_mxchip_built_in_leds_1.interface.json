@@ -1,0 +1,42 @@
+{
+    "@id": "urn:mxchip:built_in_leds:1",
+    "@type": "Interface",
+    "displayName": "mxchip_leds",
+    "contents": [
+        {
+            "@type": "Command",
+            "description": "This command will begin blinking the built-in RGBLED for given time interval.",
+            "name": "blink",
+            "commandType": "synchronous",
+            "request": {
+                "name": "interval",
+                "schema": "long"
+            },
+            "response": {
+                "name": "blinkResponse",
+                "schema": {
+                    "@type": "Object",
+                    "fields": [
+                        {
+                            "name": "description",
+                            "schema": "string"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "@type": "Command",
+            "name": "turnOnLed",
+            "comment": "This Commands will turn-on the built-in LED light on the device.",
+            "commandType": "synchronous"
+        },
+        {
+            "@type": "Command",
+            "name": "turnOffLed",
+            "comment": "This Commands will turn-off the built-in LED light on the device.",
+            "commandType": "synchronous"
+        }
+    ],
+    "@context": "http://azureiot.com/v1/contexts/IoTModel.json"
+}
