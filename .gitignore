@@ -1,0 +1,9 @@
+# Build results
+.build/
+
+# VS Code
+.vscode/
+.azurecomponent/
+
+# Default PnP interface
+urn_azureiot_*.json
