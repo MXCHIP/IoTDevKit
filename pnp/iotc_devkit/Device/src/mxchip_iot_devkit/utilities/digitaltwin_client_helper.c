@@ -159,6 +159,7 @@ int DigitalTwinClientHelper_SetCommandResponse(DIGITALTWIN_CLIENT_COMMAND_RESPON
 {
     memset(commandResponse, 0, sizeof(*commandResponse));
     commandResponse->version = DIGITALTWIN_CLIENT_COMMAND_RESPONSE_VERSION_1;
+    commandResponse->status = status;
     int result = 0;
 
     if (responseData != NULL)
@@ -176,7 +177,6 @@ int DigitalTwinClientHelper_SetCommandResponse(DIGITALTWIN_CLIENT_COMMAND_RESPON
         else
         {
             commandResponse->responseDataLen = responseLen;
-            commandResponse->status = status;
             result = 0;
         }
     }
