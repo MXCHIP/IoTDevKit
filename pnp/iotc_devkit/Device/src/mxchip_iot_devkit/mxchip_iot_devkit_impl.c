@@ -14,10 +14,12 @@
 #include "mxchip_iot_devkit_impl.h"
 #include "utilities/digitaltwin_serializer.h"
 #include "utilities/deviceinfo_interface.h"
+#include "utilities/modeldefinition_interface.h"
 #include "utilities/sensors_interface.h"
 #include "utilities/leds_interface.h"
 #include "utilities/screen_interface.h"
 #include "utilities/settings_interface.h"
+#include "utilities/system_interface.h"
 
 #define Payload_Buffer_Size 256
 
@@ -156,6 +158,23 @@ bool Settings_Property_IrSwitchCallback(bool irSwitch)
     return true;
 }
 
+DIGITALTWIN_COMMAND_RESULT ModelDefinition_Command_GetModelDefinition(char* id, char** response, unsigned int* statusCode)
+{
+    // TODO: provide implementation here
+    // You need to process the device command, and set the command response and statusCode correspondingly.
+    // Finally, return DIGITALTWIN_COMMAND_OK if the command execution succeeded, or 'DIGITALTWIN_COMMAND_ERROR' on failure.
+
+    LogInfo("Parameter: id = %s", id);
+
+    char* responseData = "Execute getModelDefinition successfully";
+    *response = (char*)calloc(strlen(responseData) + 1, sizeof(char));
+    strncpy(*response, responseData, strlen(responseData));
+
+    *statusCode = 200;
+    LogInfo("Device executed 'getModelDefinition' command successfully");
+    return DIGITALTWIN_COMMAND_OK;
+}
+
 DIGITALTWIN_COMMAND_RESULT Leds_Command_Blink(long interval, LEDS_BLINK_blinkResponse* response, unsigned int* statusCode)
 {
     LogInfo("Parameter interval: %ld", interval);
@@ -215,3 +234,14 @@ DIGITALTWIN_COMMAND_RESULT Screen_Command_Countdown(int number, unsigned int* st
     return DIGITALTWIN_COMMAND_OK;
 }
 
+DIGITALTWIN_COMMAND_RESULT System_Command_Reboot()
+{
+    // TODO: provide implementation here
+
+    // Update command execution status to cloud
+
+    SystemInterface_Reboot_UpdateStatus(SYSTEM_REBOOT_COMPLETED, 200);
+
+    LogInfo("Execute 'reboot' command successfully");
+    return DIGITALTWIN_COMMAND_OK;
+}

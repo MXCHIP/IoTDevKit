@@ -28,7 +28,7 @@
         },
         {
             "@type": "Command",
-            "description": "This command will show countdown number in the onboard OLED screen, and reboot the device once it's 0.",
+            "description": "This command will show countdown number in the onboard OLED screen.",
             "name": "countdown",
             "displayName": "Countdown",
             "commandType": "synchronous",

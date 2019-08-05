@@ -8,6 +8,10 @@
       "name": "deviceinfo"
     },
     {
+      "schema": "urn:azureiot:ModelDiscovery:ModelDefinition:1",
+      "name": "modelDefinition"
+    },
+    {
       "schema": "urn:mxchip:built_in_sensors:1",
       "name": "sensors"
     },
@@ -22,6 +26,23 @@
     {
       "schema": "urn:mxchip:settings:1",
       "name": "settings"
+    },
+    {
+      "name": "system",
+      "schema": {
+        "@type": "Interface",
+        "@id": "urn:mxchip:system:1",
+        "displayName": "mxchip_system",
+        "contents": [
+          {
+            "@type": "Command",
+            "description": "This command will reboot the device once it's 0.",
+            "name": "reboot",
+            "displayName": "Reboot",
+            "commandType": "asynchronous"
+          }
+        ]
+      }
     }
   ],
   "@context": "http://azureiot.com/v1/contexts/IoTModel.json"

@@ -5,8 +5,8 @@
  * Generated Date: Monday, August 5, 2019
  ***********************************************************************************************/
 
-#ifndef SCREEN_INTERFACE_H
-#define SCREEN_INTERFACE_H
+#ifndef MODELDEFINITION_INTERFACE_H
+#define MODELDEFINITION_INTERFACE_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,8 +27,8 @@ extern "C"
 #endif
 
 // DigitalTwin interface name from service perspective.
-static const char ScreenInterfaceId[] = "urn:mxchip:screen:1";
-static const char ScreenComponentName[] = "screen";
+static const char ModelDefinitionInterfaceId[] = "urn:azureiot:ModelDiscovery:ModelDefinition:1";
+static const char ModelDefinitionComponentName[] = "modelDefinition";
 
 // Telemetry names for this interface.
 
@@ -36,17 +36,15 @@ static const char ScreenComponentName[] = "screen";
 
 // Command names for this interface
 
-#define ScreenInterface_EchoCommand "echo"
-
-#define ScreenInterface_CountdownCommand "countdown"
+#define ModelDefinitionInterface_GetModelDefinitionCommand "getModelDefinition"
 
 // Methods
-DIGITALTWIN_INTERFACE_CLIENT_HANDLE ScreenInterface_Create();
+DIGITALTWIN_INTERFACE_CLIENT_HANDLE ModelDefinitionInterface_Create();
 
-void ScreenInterface_Close(DIGITALTWIN_INTERFACE_CLIENT_HANDLE digitalTwinInterfaceClientHandle);
+void ModelDefinitionInterface_Close(DIGITALTWIN_INTERFACE_CLIENT_HANDLE digitalTwinInterfaceClientHandle);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  // SCREEN_INTERFACE_H
+#endif  // MODELDEFINITION_INTERFACE_H

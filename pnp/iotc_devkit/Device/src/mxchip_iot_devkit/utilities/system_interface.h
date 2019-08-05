@@ -5,8 +5,8 @@
  * Generated Date: Monday, August 5, 2019
  ***********************************************************************************************/
 
-#ifndef SCREEN_INTERFACE_H
-#define SCREEN_INTERFACE_H
+#ifndef SYSTEM_INTERFACE_H
+#define SYSTEM_INTERFACE_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,6 +15,7 @@
 #include "digitaltwin_interface_client.h"
 #include "azure_c_shared_utility/xlogging.h"
 #include "azure_c_shared_utility/threadapi.h"
+#include "azure_c_shared_utility/uuid.h"
 
 #include "digitaltwin_client_helper.h"
 #include "digitaltwin_serializer.h"
@@ -26,9 +27,17 @@ extern "C"
 {
 #endif
 
+typedef enum SYSTEM_REBOOT_STATUS_TAG
+{
+    SYSTEM_REBOOT_INACTIVE,
+    SYSTEM_REBOOT_RUNNING,
+    SYSTEM_REBOOT_COMPLETED,
+    SYSTEM_REBOOT_ERROR
+} SYSTEM_REBOOT_STATUS;
+
 // DigitalTwin interface name from service perspective.
-static const char ScreenInterfaceId[] = "urn:mxchip:screen:1";
-static const char ScreenComponentName[] = "screen";
+static const char SystemInterfaceId[] = "urn:mxchip:system:1";
+static const char SystemComponentName[] = "system";
 
 // Telemetry names for this interface.
 
@@ -36,17 +45,17 @@ static const char ScreenComponentName[] = "screen";
 
 // Command names for this interface
 
-#define ScreenInterface_EchoCommand "echo"
-
-#define ScreenInterface_CountdownCommand "countdown"
+#define SystemInterface_RebootCommand "reboot"
 
 // Methods
-DIGITALTWIN_INTERFACE_CLIENT_HANDLE ScreenInterface_Create();
+DIGITALTWIN_INTERFACE_CLIENT_HANDLE SystemInterface_Create();
 
-void ScreenInterface_Close(DIGITALTWIN_INTERFACE_CLIENT_HANDLE digitalTwinInterfaceClientHandle);
+void SystemInterface_Close(DIGITALTWIN_INTERFACE_CLIENT_HANDLE digitalTwinInterfaceClientHandle);
+
+DIGITALTWIN_CLIENT_RESULT SystemInterface_Reboot_UpdateStatus(SYSTEM_REBOOT_STATUS commandStatus, int statusCode);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  // SCREEN_INTERFACE_H
+#endif  // SYSTEM_INTERFACE_H
