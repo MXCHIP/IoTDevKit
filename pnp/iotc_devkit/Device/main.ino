@@ -10,6 +10,7 @@
 #include "azure_c_shared_utility/xlogging.h"
 #include "certs/certs.h"
 #include "src/mxchip_iot_devkit/pnp_device.h"
+#include "src/mxchip_iot_devkit/ui/screen.h"
 
 // IoT Central requires DPS.  Include required header and constants
 #include "azure_prov_client/iothub_security_factory.h"
@@ -247,7 +248,14 @@ void setup()
     int ret = initIoTDevKit(1);
     if (ret != 0)
     {
-        Screen.print(1, "Failed to \r\ninitialize the\r\nIoT DevKit.");
+        if (ret == -100)
+        {
+            Screen.print(1, "No Wi-Fi.\r\n \r\n ");
+        }
+        else
+        {
+            Screen.print(1, "Internal error!\r\nCheck log for\r\n more detail.");
+        }
         return;
     }
     else
@@ -282,20 +290,20 @@ void setup()
         if (pnp_device_initialize(buff, certificates) != 0)
         {
             digitalWrite(LED_AZURE, 0);
-            Screen.print(1, "Init failed!\r\nCheck log for\r\n more detail.");
+            Screen.print(1, "Error: \r\nIoT Hub is not\r\navailable.");
             iotHubConnected = false;
         }
         else
         {
             digitalWrite(LED_AZURE, 1);
-            Screen.print(1, "PnP Enabled\r\nRunning...");
             iotHubConnected = true;
+            screen_main();
         }
     }
     else
     {
         digitalWrite(LED_AZURE, 0);
-        Screen.print(1, "Init failed!\r\nCheck log for\r\n more detail.");
+        Screen.print(1, "Error: \r\nDPS register\r\ndevice failed.\r\n");
         iotHubConnected = false;
     }
 }

@@ -53,7 +53,7 @@ void ScreenInterface_Command_EchoCallback(const DIGITALTWIN_CLIENT_COMMAND_REQUE
     JSON_Value *jsonValue = NULL;
     jsonValue = json_parse_string((const char*)requestData);
 
-    char* text;
+    char* text = NULL;
     mallocAndStrcpy_s(&text, (char*)json_value_get_string(jsonValue));
 
     // Invoke device command here
