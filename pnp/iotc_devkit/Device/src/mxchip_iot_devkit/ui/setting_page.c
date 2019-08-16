@@ -113,9 +113,8 @@ static WEB_PAGE_SETTING_ITEM az_iot_sas_token_items[] =
 {
     {
         "DPSEndpoint",
-        "The DPS endpoint",
-        ITEM_INPUT_TEXT,
         "DPS endpoint",
+        ITEM_INPUT_TEXT,
         "global.azure-devices-provisioning.net",
         NULL,
         128,
@@ -123,9 +122,8 @@ static WEB_PAGE_SETTING_ITEM az_iot_sas_token_items[] =
     },
     {
         "ScopeId",
-        "The DPS ID Scope",
-        ITEM_INPUT_TEXT,
         "DPS ID Scope",
+        ITEM_INPUT_TEXT,
         NULL,
         NULL,
         32,
@@ -133,9 +131,8 @@ static WEB_PAGE_SETTING_ITEM az_iot_sas_token_items[] =
     },
     {
         "DeviceId",
-        "The Device ID",
-        ITEM_INPUT_TEXT,
         "Device ID",
+        ITEM_INPUT_TEXT,
         NULL,
         NULL,
         128,
@@ -143,9 +140,8 @@ static WEB_PAGE_SETTING_ITEM az_iot_sas_token_items[] =
     },
     {
         "PrimaryKey",
-        "The Primary Key",
-        ITEM_INPUT_PASSWORD,
         "Primary Key",
+        ITEM_INPUT_PASSWORD,
         NULL,
         NULL,
         128,
