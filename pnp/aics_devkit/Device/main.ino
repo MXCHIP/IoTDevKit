@@ -11,7 +11,6 @@
 #include "certs/certs.h"
 #include "src/mxchip_iot_devkit/pnp_device.h"
 #include "src/mxchip_iot_devkit/ui/screen.h"
-#include "src/mxchip_iot_devkit/ui/setting_page.h"
 
 // IoT Central requires DPS.  Include required header and constants
 #include "azure_prov_client/iothub_security_factory.h"
@@ -343,5 +342,5 @@ void loop()
 
 void __sys_setup(void)
 {
-    enable_sas_token_setting();
+    SystemWebAddSettings(&az_iot_symmetric_key_settings);
 }
