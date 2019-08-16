@@ -244,19 +244,16 @@ static bool registerDevice(bool traceOn)
 static bool registerDeviceRetry(bool traceOn, int retryNumber, int retryInterval)
 {
     char buff[32];
+    Screen.print(1, "Registering...\r\n  ");
     for (int i = 0; i < retryNumber; i++)
     {
-        if (i > 0)
-        {
-            snprintf(buff, sizeof(buff), "Register device:\r\n retry %d", i);
-            Screen.print(1, buff);
-        }
-
         if (registerDevice(traceOn))
         {
             return true;
         }
         delay(retryInterval);
+        snprintf(buff, sizeof(buff), " retry %d", i + 1);
+        Screen.print(2, buff);
     }
     return false;
 }
@@ -324,7 +321,7 @@ void setup()
     else
     {
         digitalWrite(LED_AZURE, 0);
-        Screen.print(1, "Error: \r\nDPS register\r\ndevice failed.\r\n");
+        Screen.print(1, "Error: \r\nRegistering\r\ndevice failed.\r\n");
         iotHubConnected = false;
     }
 }
