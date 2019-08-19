@@ -45,7 +45,7 @@ If you plan to modify the code, you should follow these instructions to [prepare
 
 1. Configure Arduino extension to install latest DevKit. In VS Code, use **Ctrl+Shift+P** to open the command palette, enter and select **Preferences: Open User Settings**. Type **arduino** in the search bar and choose **Edit in settings.json**.
 
-    ![Arduino setting](media/howto-connect-devkit-pnp/arduino-setting.png)
+    ![Arduino setting](../docs/howto-connect-devkit-pnp/arduino-setting.png)
 
 1. Add a line in `arduino.additionalUrls` section that points to the DevKit SDK that supports IoT Plug and Play.
 
@@ -53,7 +53,7 @@ If you plan to modify the code, you should follow these instructions to [prepare
     https://raw.githubusercontent.com/VSChina/azureiotdevkit_tools/pnp/package_mxchip_board_index.json
     ```
 
-    ![Arduino additional URL](media/howto-connect-devkit-pnp/add-url.png)
+    ![Arduino additional URL](../docs/howto-connect-devkit-pnp/add-url.png)
 
 1. Use **Ctrl+Shift+P** to open the command palette, enter and select **Arduino: Board Manager**.
 
@@ -61,21 +61,21 @@ If you plan to modify the code, you should follow these instructions to [prepare
 
 1. After the refresh completed, enter **AZ3166** in the search bar. Select and install latest version (>= 1.9.6).
 
-    ![Select DevKit SDK version](media/howto-connect-devkit-pnp/select-version.png)
+    ![Select DevKit SDK version](../docs/howto-connect-devkit-pnp/select-version.png)
 
     It takes sometimes to download and install the latest SDK.
 
 1. Check the MXCHIP AZ3166 is shown as selected board in the status bar and serial port with STMicroelectronics is used.
 
-   ![Select serial port](media/howto-connect-devkit-pnp/select-serialport.png)
+   ![Select serial port](../docs/howto-connect-devkit-pnp/select-serialport.png)
 
    Your COM port may differ from the image. Click the serial port, choose the port with **STMicroelectronics** in command palette.
 
-   ![Select COM](media/howto-connect-devkit-pnp/select-COM.png)
+   ![Select COM](../docs/howto-connect-devkit-pnp/select-COM.png)
 
    If the board type is incorrect, or there is no board type selected, click the board type and select **MXCHIP AZ3166** in the window that pops up.
 
-   ![Select board](media/howto-connect-devkit-pnp/select-board.png)
+   ![Select board](../docs/howto-connect-devkit-pnp/select-board.png)
 
 1. In `pnp/iotc_devkit` folder, open **iotc_devkit.code-workspace** in VS Code.
 
@@ -83,13 +83,13 @@ If you plan to modify the code, you should follow these instructions to [prepare
 
    In OUTPUT pane, you will see the compilation and upload progress.
 
-   ![Arduino upload done](media/howto-connect-devkit-pnp/arduino-upload-done.png)
+   ![Arduino upload done](../docs/howto-connect-devkit-pnp/arduino-upload-done.png)
 
 1. Click **Open Serial Monitor** button status bar, then you will see the messages sent from your DevKit in OUTPUT pane.
 
-   ![Open serial monitor](media/howto-connect-devkit-pnp/open-serial-monitor.png)
+   ![Open serial monitor](../docs/howto-connect-devkit-pnp/open-serial-monitor.png)
 
-   ![Serial monitor message](media/howto-connect-devkit-pnp/serial-message.png)
+   ![Serial monitor message](../docs/howto-connect-devkit-pnp/serial-message.png)
 
 ### MXChip Device template details
 
