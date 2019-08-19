@@ -109,26 +109,10 @@ _exit:
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 // Azure IoT hub device settings - sas token for IoT Central
+#define DPS_DEFAULT_ENDPOINT "global.azure-devices-provisioning.net"
+
 static WEB_PAGE_SETTING_ITEM az_iot_sas_token_items[] = 
 {
-    {
-        "DPSEndpoint",
-        "DPS endpoint",
-        ITEM_INPUT_TEXT,
-        "global.azure-devices-provisioning.net",
-        NULL,
-        128,
-        0
-    },
-    {
-        "ScopeId",
-        "DPS ID Scope",
-        ITEM_INPUT_TEXT,
-        NULL,
-        NULL,
-        32,
-        0
-    },
     {
         "DeviceId",
         "Device ID",
@@ -136,15 +120,27 @@ static WEB_PAGE_SETTING_ITEM az_iot_sas_token_items[] =
         NULL,
         NULL,
         128,
+        NULL,
+        0
+    },
+    {
+        "ScopeId",
+        "Scope ID",
+        ITEM_INPUT_TEXT,
+        NULL,
+        NULL,
+        32,
+        NULL,
         0
     },
     {
         "PrimaryKey",
-        "Primary Key",
+        "Group SAS Primary Key",
         ITEM_INPUT_PASSWORD,
         NULL,
         NULL,
         128,
+        "Primary Key",
         0
     }
 };
@@ -153,7 +149,7 @@ static int process_az_sas_token_string(WEB_PAGE_SETTINGS *settings);
 
 static WEB_PAGE_SETTINGS az_iot_sas_token_settings = 
 {
-    "Azure IoT Settings",
+    "Azure IoT Central Settings",
     sizeof(az_iot_sas_token_items) / sizeof(WEB_PAGE_SETTING_ITEM),
     az_iot_sas_token_items,
     process_az_sas_token_string
@@ -168,8 +164,7 @@ static int process_az_sas_token_string(WEB_PAGE_SETTINGS *settings)
     
     if (settings->items[0].value_text == NULL || settings->items[0].value_text[0] == 0
         || settings->items[1].value_text == NULL || settings->items[1].value_text[1] == 0
-        || settings->items[2].value_text == NULL || settings->items[2].value_text[2] == 0
-        || settings->items[3].value_text == NULL || settings->items[3].value_text[3] == 0)
+        || settings->items[2].value_text == NULL || settings->items[2].value_text[2] == 0)
     {
         // One value is empty, the whole symmetric key setting is emtpy
         return 0;
@@ -177,13 +172,12 @@ static int process_az_sas_token_string(WEB_PAGE_SETTINGS *settings)
 
     // Calculate sas token
     char *sasKey = NULL;
-    if (GenSasToken(settings->items[3].value_text, settings->items[2].value_text, &sasKey))
+    if (GenSasToken(settings->items[2].value_text, settings->items[0].value_text, &sasKey))
     {
         // Failed
-        settings->items[0].result = SETTING_RESULT_NO_CHANGE;
-        settings->items[1].result = SETTING_RESULT_NO_CHANGE;
-        settings->items[2].result = SETTING_RESULT_NO_CHANGE;
-        settings->items[3].result = SETTING_RESULT_INVALID_VALUE;
+        settings->items[0].result = SETTING_RESULT_OMIT;
+        settings->items[1].result = SETTING_RESULT_OMIT;
+        settings->items[2].result = SETTING_RESULT_INVALID_VALUE;
         return -1;
     }
 
@@ -194,23 +188,21 @@ static int process_az_sas_token_string(WEB_PAGE_SETTINGS *settings)
     }
     snprintf(device_connection_string, AZ_IOT_HUB_MAX_LEN, 
              "DPSEndpoint=%s;ScopeId=%s;RegistrationId=%s;SymmetricKey=%s",
-             settings->items[0].value_text,
+             DPS_DEFAULT_ENDPOINT,
              settings->items[1].value_text,
-             settings->items[2].value_text,
+             settings->items[0].value_text,
              sasKey);
     if (saveIoTHubConnectionString(device_connection_string))
     {
         settings->items[0].result = SETTING_RESULT_SAVE_FAILED;
         settings->items[1].result = SETTING_RESULT_SAVE_FAILED;
         settings->items[2].result = SETTING_RESULT_SAVE_FAILED;
-        settings->items[3].result = SETTING_RESULT_SAVE_FAILED;
     }
     else
     {
         settings->items[0].result = SETTING_RESULT_SAVED;
         settings->items[1].result = SETTING_RESULT_SAVED;
         settings->items[2].result = SETTING_RESULT_SAVED;
-        settings->items[3].result = SETTING_RESULT_SAVED;
     }
     free(device_connection_string);
     return 0;

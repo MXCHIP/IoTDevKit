@@ -284,7 +284,7 @@ static const char *fan[] = {fan1, fan2};
 void play_fanspeed_animation(int value)
 {
     unsigned char *buffer;
-    char msg[32];
+    char msg[40];
 
     cleanDevKitScreen();
     snprintf(msg, sizeof(msg), "Fan speed\r\nis changed to\r\n  %d", value);
@@ -345,7 +345,7 @@ static const char *current[] = {current1, current2, current3, current2};
 
 void play_current_animation(int value)
 {
-    char msg[32];
+    char msg[40];
 
     cleanDevKitScreen();
     snprintf(msg, sizeof(msg), "Current\r\nis changed to\r\n  %d", value);
