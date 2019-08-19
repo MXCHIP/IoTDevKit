@@ -10,6 +10,7 @@
 #include "azure_c_shared_utility/xlogging.h"
 #include "certs/certs.h"
 #include "src/mxchip_iot_devkit/pnp_device.h"
+#include "src/mxchip_iot_devkit/pnp_statistics.h"
 #include "src/mxchip_iot_devkit/ui/screen.h"
 #include "src/mxchip_iot_devkit/ui/setting_page.h"
 
@@ -19,6 +20,7 @@
 #include "azure_prov_client/prov_transport_mqtt_client.h"
 #include "azure_prov_client/prov_security_factory.h"
 
+static bool wifiConnected = false;
 static bool iotHubConnected = false;
 
 // State of DPS registration process.  We cannot proceed with DPS until we get into the state APP_DPS_REGISTRATION_SUCCEEDED.
@@ -258,30 +260,11 @@ static bool registerDeviceRetry(bool traceOn, int retryNumber, int retryInterval
     return false;
 }
 
-void setup()
+static void connectIoTService(void)
 {
     char buff[IOT_HUB_CONN_STR_MAX_LEN];
-
-    // Initialize the board
-    int ret = initIoTDevKit(1);
-    if (ret != 0)
-    {
-        if (ret == -100)
-        {
-            Screen.print(1, "No Wi-Fi.\r\n \r\n ");
-        }
-        else
-        {
-            Screen.print(1, "Internal error!\r\nCheck log for\r\n more detail.");
-        }
-        return;
-    }
-    else
-    {
-        IPAddress ip = WiFi.localIP();
-        snprintf(buff, sizeof(buff), "%s\r\nWiFi Connected\r\n%s", WiFi.SSID(), ip.get_address());
-        Screen.print(1, buff);
-    }
+    iotHubConnected = false;
+    digitalWrite(LED_AZURE, 0);
 
     // Initialize device model application
     if (registerDeviceRetry(false, 10, 10000))
@@ -307,9 +290,7 @@ void setup()
         
         if (pnp_device_initialize(buff, certificates) != 0)
         {
-            digitalWrite(LED_AZURE, 0);
             Screen.print(1, "Error: \r\nIoT Hub is not\r\navailable.");
-            iotHubConnected = false;
         }
         else
         {
@@ -320,18 +301,63 @@ void setup()
     }
     else
     {
-        digitalWrite(LED_AZURE, 0);
         Screen.print(1, "Error: \r\nRegistering\r\ndevice failed.\r\n");
-        iotHubConnected = false;
     }
+}
+
+void setup()
+{
+    char buff[64];
+
+    // Initialize the board
+    int ret = initIoTDevKit(1);
+    if (ret != 0)
+    {
+        if (ret == -100)
+        {
+            Screen.print(1, "No Wi-Fi.\r\n \r\n ");
+        }
+        else
+        {
+            Screen.print(1, "Internal error!\r\nCheck log for\r\n more detail.");
+        }
+        return;
+    }
+    else
+    {
+        IPAddress ip = WiFi.localIP();
+        snprintf(buff, sizeof(buff), "%s\r\nWiFi Connected\r\n%s", WiFi.SSID(), ip.get_address());
+        Screen.print(1, buff);
+        wifiConnected = true;
+    }
+
+    connectIoTService();
 }
 
 void loop()
 {
-    // put your main code here, to run repeatedly:
-    if (iotHubConnected)
+    if (wifiConnected)
     {
-        pnp_device_run();
+        if (iotHubConnected)
+        {
+            pnp_device_run();
+
+            if (is_error_max())
+            {
+                setting_change(SETTING_CHANGE_NONE, 0);
+                telemetry_sent_reset();
+                error_reset();
+
+                pnp_device_close();
+                iotHubConnected = false;
+            }
+        }
+        else
+        {
+            // Retry
+            screen_main();
+            connectIoTService();
+        }
     }
 
     invokeDevKitPeripheral();
