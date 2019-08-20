@@ -176,12 +176,6 @@ static bool registerDevice(bool traceOn)
         return false;
     }
 
-    const char *connectionString = getIoTHubConnectionString();
-    if (!parseDPSConnectionString(connectionString))
-    {
-        return false;
-    }
-
     if (prov_dev_set_symmetric_key_info(registrationId, sasKey) != 0)
     {
         LogError("prov_dev_set_symmetric_key_info failed.");
@@ -329,6 +323,14 @@ void setup()
         snprintf(buff, sizeof(buff), "%s\r\nWiFi Connected\r\n%s", WiFi.SSID(), ip.get_address());
         Screen.print(1, buff);
         wifiConnected = true;
+    }
+
+    const char *connectionString = getIoTHubConnectionString();
+    if (!parseDPSConnectionString(connectionString))
+    {
+        Screen.print(0, "Setting error\r\nPlease re-config\r\nthe device\r\nin AP mode.");
+        wifiConnected = false;
+        return;
     }
 
     connectIoTService();
