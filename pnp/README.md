@@ -5,7 +5,7 @@ This is the sample codes for MXChip IoT DevKit using IoT Plug and Play. Two samp
 - [iotc_devkit](./iotc_devkit): Sample code to connect the DevKit to your Azure IoT Central application.
 - [aics_devkit](./aics_devkit): Sample code to certify the DevKit on Azure IoT Certification Service.
 
-## Connect the DevKit to your Azure IoT Central application
+## Sample: Connect the DevKit to your Azure IoT Central application
 
 First, go to the [quickstart](https://docs.microsoft.com/azure/iot-central/howto-connect-devkit-pnp) tutorial to learn how to connect the DevKit to your Azure IoT Central application.
 
@@ -19,7 +19,6 @@ If you want to explore and modify the device code, follow these steps.
    git clone https://github.com/MXCHIP/IoTDevKit.git
    ```
 
-    > [!TIP]
     > If **git** is not installed in your development environment, you can download it from [https://git-scm.com/download](https://git-scm.com/download).
 
 1. The source code is located in `pnp/iotc_devkit` folder.
@@ -59,7 +58,7 @@ If you plan to modify the code, you should follow these instructions to [prepare
 
 1. In the board manager page, choose **Refresh Package Indexes**.
 
-1. After the refresh completed, enter **AZ3166** in the search bar. Select and install latest version (>= 1.9.6).
+1. After the refresh completed, enter **AZ3166** in the search bar. Select and install latest version (>= 1.9.9).
 
     ![Select DevKit SDK version](../docs/howto-connect-devkit-pnp/select-version.png)
 
@@ -90,6 +89,24 @@ If you plan to modify the code, you should follow these instructions to [prepare
    ![Open serial monitor](../docs/howto-connect-devkit-pnp/open-serial-monitor.png)
 
    ![Serial monitor message](../docs/howto-connect-devkit-pnp/serial-message.png)
+
+### Troubleshooting
+
+1. Download a serial client such as [Tera Term](https://tera-term.en.lo4d.com/windows).
+
+1. Connect the DevKit to your computer by USB.
+
+1. Open Tera Term, select **serial**, and then expand the port. The device should appear as an STMicroelectronics device. Choose **STMicroelectronics STLink Virtual COM Port**. Choose OK.
+
+    ![Select port](../docs/howto-connect-devkit-pnp/select-port.png)
+
+1. Choose **Setup** on the menu bar, select **serial port**, and configure the connection speed to **115200** baud. Then choose OK to open the serial monitor.
+
+    ![Configure speed](../docs/howto-connect-devkit-pnp/configure-speed.png)
+
+1. You can see the output log in the Window.
+
+    ![Serial message](../docs/howto-connect-devkit-pnp/serial-message.png)
 
 ### MXChip Device template details
 
@@ -139,6 +156,6 @@ turnOffLed|/|/
 echo|text|string
 countdown|number|integer
 
-## Certify the DevKit on Azure IoT Certification Service
+## Sample: Certify the DevKit on Azure IoT Certification Service
 
 [TBD]
