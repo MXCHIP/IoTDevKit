@@ -22,18 +22,9 @@
 #include "ui/screen.h"
 #include "ui/screen_animation.h"
 
+#include "pnp_statistics.h"
+
 #define Payload_Buffer_Size 256
-
-#define SETTING_CHANGE_NONE     0
-#define SETTING_CHANGE_FANSPEED 1
-#define SETTING_CHANGE_CURRENT  2
-#define SETTING_CHANGE_VOLTAGE  3
-#define SETTING_CHANGE_IRDA     4
-
-static int telemetry_sent = 0;
-
-static int last_setting_change = SETTING_CHANGE_NONE;
-static int last_setting_value = 0;
 
 double Sensors_Telemetry_ReadHumidity()
 {
@@ -76,17 +67,20 @@ void Sensors_Telemetry_ReadAccelerometer(SENSORS_ACCELEROMETER * accelerometer)
 
 void SendTelemetry_Succeeded_Callback(const char* interfaceName, const char* telemetryName)
 {
-    telemetry_sent++;
+    telemetry_sent_inc();
 }
 
 void SendTelemetry_Error_Callback(const char* interfaceName, const char* telemetryName)
 {
-    LogError("DigitalTwin failed to deliver telemetry message for %s::%s", interfaceName, telemetryName);
+    error_inc();
 }
 
 void ReportProperty_Succeeded_Callback(const char* interfaceName, const char* propertyName)
 {
-    if (telemetry_sent)
+    int last_setting_change = 0;
+    int last_setting_value = 0;
+    get_last_setting_change(&last_setting_change, &last_setting_value);
+    if (get_telemetry_sent_number() > 0)
     {
         switch(last_setting_change)
         {
@@ -104,14 +98,13 @@ void ReportProperty_Succeeded_Callback(const char* interfaceName, const char* pr
             break;
         }
     }
-    last_setting_change = SETTING_CHANGE_NONE;
+    setting_change(SETTING_CHANGE_NONE, 0);
 }
 
 void ReportProperty_Error_Callback(const char* interfaceName, const char* propertyName)
 {
-    last_setting_change = SETTING_CHANGE_NONE;
-
-    LogError("DigitalTwin failed to report writable property for %s::%s", interfaceName, propertyName);
+    setting_change(SETTING_CHANGE_NONE, 0);
+    error_inc();
 }
 
 char* Deviceinfo_Property_GetManufacturer()
@@ -156,29 +149,25 @@ long Deviceinfo_Property_GetTotalMemory()
 
 bool Settings_Property_FanSpeedCallback(double fanSpeed)
 {
-    last_setting_change = SETTING_CHANGE_FANSPEED;
-    last_setting_value = (int)fanSpeed;
+    setting_change(SETTING_CHANGE_FANSPEED, (int)fanSpeed);
     return true;
 }
 
 bool Settings_Property_VoltageCallback(double voltage)
 {
-    last_setting_change = SETTING_CHANGE_VOLTAGE;
-    last_setting_value = (int)voltage;
+    setting_change(SETTING_CHANGE_VOLTAGE, (int)voltage);
     return true;
 }
 
 bool Settings_Property_CurrentCallback(double current)
 {
-    last_setting_change = SETTING_CHANGE_CURRENT;
-    last_setting_value = (int)current;
+    setting_change(SETTING_CHANGE_CURRENT, (int)current);
     return true;
 }
 
 bool Settings_Property_IrSwitchCallback(bool irSwitch)
 {
-    last_setting_change = SETTING_CHANGE_IRDA;
-    last_setting_value = (int)irSwitch;
+    setting_change(SETTING_CHANGE_IRDA, (int)irSwitch);
     return true;
 }
 
@@ -238,4 +227,3 @@ DIGITALTWIN_COMMAND_RESULT Screen_Command_Countdown(int number, unsigned int* st
     LogInfo("Execute 'countdown' command successfully");
     return DIGITALTWIN_COMMAND_OK;
 }
-
