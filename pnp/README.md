@@ -115,7 +115,7 @@ A device created from the MXChip IoT DevKit device template has the following ch
 #### Telemetry
 
 Field name|Units|Minimum|Maximum|Decimal places
--|-|-|-|-|-
+-|-|-|-|-
 humidity|%|0|100|0
 temp|°C|-40|120|0
 pressure|hPa|260|1260|0
@@ -149,7 +149,7 @@ IR|irSwitch|boolean|Writable
 #### Commands
 
 Field name|Input field name|Input field type
--|-|-|-|-
+-|-|-
 blink|interval|long
 turnOnLed|/|/
 turnOffLed|/|/
