@@ -290,7 +290,7 @@ static void connectIoTService(void)
         {
             digitalWrite(LED_AZURE, 1);
             iotHubConnected = true;
-            screen_main();
+            screen_showInfo(dpsIotHubUri);
         }
     }
     else

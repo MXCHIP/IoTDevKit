@@ -6,10 +6,24 @@
 #include "azure_c_shared_utility/singlylinkedlist.h"
 #include "screen.h"
 
+ char dpsDeviceId[256]="";
+
 void screen_main(void)
 {
-    textOutDevKitScreen(0, "IoT DevKit\r\nPnP Enabled\r\nRunning...", 0);
+    
+    textOutDevKitScreen(0, "IoT DevKit", 0);
+    textOutDevKitScreen(1, "PnP Enabled", 0);
+    textOutDevKitScreen(2, (char*)&dpsDeviceId, 0);
     textOutDevKitScreen(3, getIPAddress(), 0);
+}
+
+void screen_showInfo(const char* text)
+{
+    sprintf(dpsDeviceId,"%s",text);
+    cleanDevKitScreen();
+    textOutDevKitScreen(0, text, 0);
+    delay(3000);
+    screen_main();
 }
 
 void screen_echo(const char* text)
