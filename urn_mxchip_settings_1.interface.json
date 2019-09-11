@@ -1,0 +1,36 @@
+{
+    "@id": "urn:mxchip:settings:1",
+    "@type": "Interface",
+    "displayName": "mxchip_settings",
+    "contents": [
+        {
+            "@type": "Property",
+            "name": "fanSpeed",
+            "displayName": "Fan Speed",
+            "writable": true,
+            "schema": "double"
+        },
+        {
+            "@type": "Property",
+            "name": "voltage",
+            "displayName": "Voltage",
+            "writable": true,
+            "schema": "double"
+        },
+        {
+            "@type": "Property",
+            "name": "current",
+            "displayName": "Current",
+            "writable": true,
+            "schema": "double"
+        },
+        {
+            "@type": "Property",
+            "name": "irSwitch",
+            "displayName": "IR",
+            "writable": true,
+            "schema": "boolean"
+        }
+    ],
+    "@context": "http://azureiot.com/v1/contexts/IoTModel.json"
+}
