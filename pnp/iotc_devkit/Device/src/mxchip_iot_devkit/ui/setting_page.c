@@ -124,8 +124,8 @@ static WEB_PAGE_SETTING_ITEM az_iot_sas_token_items[] =
         0
     },
     {
-        "ScopeId",
-        "Scope ID",
+        "IdScope",
+        "ID Scope",
         ITEM_INPUT_TEXT,
         NULL,
         NULL,
@@ -187,7 +187,7 @@ static int process_az_sas_token_string(WEB_PAGE_SETTINGS *settings)
         return -1;
     }
     snprintf(device_connection_string, AZ_IOT_HUB_MAX_LEN, 
-             "DPSEndpoint=%s;ScopeId=%s;RegistrationId=%s;SymmetricKey=%s",
+             "DPSEndpoint=%s;IdScope=%s;DeviceId=%s;SymmetricKey=%s",
              DPS_DEFAULT_ENDPOINT,
              settings->items[1].value_text,
              settings->items[0].value_text,

@@ -80,6 +80,8 @@ void ScreenInterface_Command_EchoCallback(const DIGITALTWIN_CLIENT_COMMAND_REQUE
         DigitalTwinClientHelper_SetCommandResponse(commandResponse, errorResponse, statusCode);
     }
 
+    free(requestData);
+
     if (jsonValue)
     {
         json_value_free(jsonValue);
@@ -133,6 +135,8 @@ void ScreenInterface_Command_CountdownCallback(const DIGITALTWIN_CLIENT_COMMAND_
         char* errorResponse = "\"Failed to execute countdown command\"";
         DigitalTwinClientHelper_SetCommandResponse(commandResponse, errorResponse, statusCode);
     }
+
+    free(requestData);
 
     if (jsonValue)
     {
