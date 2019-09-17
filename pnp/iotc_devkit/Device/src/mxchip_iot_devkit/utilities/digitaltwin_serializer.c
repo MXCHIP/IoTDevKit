@@ -121,6 +121,7 @@ bool Sensors_SerializeMagnetometerTelemetry(char * payloadBuffer, int size)
     else
     {
         memcpy(payloadBuffer, serializedString, neededSize);
+        free(serializedString);
     }
 
     json_value_free(root_value);
@@ -160,6 +161,7 @@ bool Sensors_SerializeGyroscopeTelemetry(char * payloadBuffer, int size)
     else
     {
         memcpy(payloadBuffer, serializedString, neededSize);
+        free(serializedString);
     }
 
     json_value_free(root_value);
@@ -199,6 +201,7 @@ bool Sensors_SerializeAccelerometerTelemetry(char * payloadBuffer, int size)
     else
     {
         memcpy(payloadBuffer, serializedString, neededSize);
+        free(serializedString);
     }
 
     json_value_free(root_value);
