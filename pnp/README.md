@@ -3,6 +3,9 @@
 This is the sample codes for MXChip IoT DevKit using IoT Plug and Play. Two samples currently we provide:
 
 - [iotc_devkit](./iotc_devkit): Sample code to connect the DevKit to your Azure IoT Central application.
+
+  > This sample is **archieved** and have already moved to a new place. You can find it on [https://github.com/Azure-Samples/mxchip-iot-devkit-pnp/](https://github.com/Azure-Samples/mxchip-iot-devkit-pnp/).
+
 - [aics_devkit](./aics_devkit): Sample code to certify the DevKit on Azure IoT Certification Service.
 
 ## Sample: Connect the DevKit to your Azure IoT Central application
